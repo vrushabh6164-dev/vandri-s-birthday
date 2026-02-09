@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Vandri 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --pink:#ff7aa2;
+      --soft:#fff1f6;
+      --dark:#1f1f2b;
+      --accent:#ffd166;
+    }
+    *{box-sizing:border-box}
+    body{
+      overscroll-behavior: none;
+      margin:0;
+      font-family:Poppins, sans-serif;
+      background:linear-gradient(180deg,#0f1020,#1f1f3a);
+      color:white;
+      overflow-x:hidden;
+    }
+    section{
+      scroll-snap-align:start;
+      min-height:100vh;
+      padding:60px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+    .card{
+      background:rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius:24px;
+      padding:40px 30px;
+      max-width:900px;
+      width:100%;
+      box-shadow:0 20px 60px rgba(0,0,0,0.4);
+    }
+    h1,h2{
+      font-family:Pacifico, cursive;
+      margin-bottom:20px;
+    }
+    h1{font-size:3rem}
+    h2{font-size:2.4rem}
+    p{font-size:1.05rem;line-height:1.7}
+    button{
+      background:linear-gradient(135deg,var(--pink),#ff9bbf);
+      border:none;
+      color:white;
+      padding:14px 28px;
+      border-radius:999px;
+      font-size:1rem;
+      cursor:pointer;
+      margin-top:25px;
+      box-shadow:0 10px 25px rgba(255,122,162,0.4);
+    }
+    button:hover{transform:scale(1.05)}
+
+    /* Opening */
+    #start h1 span{color:var(--pink)}
+
+    /* Wish */
+    #wish h1{font-size:3.2rem}
+    .sparkle{
+      animation:sparkle 2s infinite alternate;
+    }
+    @keyframes sparkle{
+      from{letter-spacing:1px}
+      to{letter-spacing:4px}
+    }
+
+    /* Mini-game */
+    .game-box{
+      margin-top:20px;
+      font-size:1.2rem;
+    }
+    .choices button{
+      margin:10px;
+      background:linear-gradient(135deg,#6ee7ff,#8b9bff);
+    }
+
+    /* Floating Hearts */
+    .heart{
+      color:var(--pink);
+      font-size:2rem;
+      animation:float 3s infinite ease-in-out;
+    }
+    @keyframes float{
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-12px)}
+      100%{transform:translateY(0)}
+    }
+
+    /* Gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:18px;
+      margin-top:30px;
+    }
+    .gallery img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      border-radius:18px;
+      transition:0.3s;
+      cursor:pointer;
+    }
+    .gallery img:hover{transform:scale(1.05) rotate(1deg)}
+
+    /* Pop-up Birthday */
+    #wishPopup{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.8);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:999;
+    }
+    .wishText{
+      font-family:Pacifico,cursive;
+      font-size:3rem;
+      color:#ff7aa2;
+      text-align:center;
+      animation:pop 1.2s ease forwards, glow 2s infinite alternate;
+    }
+    @keyframes pop{
+      from{transform:scale(0);opacity:0}
+      to{transform:scale(1);opacity:1}
+    }
+    @keyframes glow{
+      from{text-shadow:0 0 10px #ff7aa2}
+      to{text-shadow:0 0 30px #ffd1e1}
+    }
+
+    /* Image popup */
+    #imagePopup{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.9);
+      display:none;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      z-index:999;
+    }
+    #imagePopup img{
+      max-width:80%;
+      max-height:70%;
+      border-radius:24px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.6);
+      margin-bottom:20px;
+    }
+
+    footer{
+      text-align:center;
+      padding:20px;
+      font-size:0.9rem;
+      opacity:0.8;
+    }
+
+    /* Animations */
+    @keyframes floatUp{
+      to{transform:translateY(-110vh); opacity:0}
+    }
+    @keyframes confetti{
+      to{transform:translateY(110vh) rotate(360deg); opacity:0}
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Opening -->
+  <section id="start">
+    <div class="card">
+      <h1>Hey <span>Vandri</span> 👀💗</h1>
+      <p>I made something special for you…<br>Only rule: you HAVE to click and continue 😌</p>
+      <button onclick="goTo('wish')">Tap to start 🎁</button>
+    </div>
+  </section>
+
+  <!-- Wish -->
+  <section id="wish">
+    <div class="card">
+      <h1 class="sparkle">Happy 19th Birthday<br>Tapasvi 🎉💖</h1>
+      <p>To the most beautiful, cute, annoying (in the best way 😏), and special person in my life.</p>
+      <audio id="bgm" controls loop>
+        <source src="song.mp3" type="audio/mpeg">
+      </audio>
+      <p style="font-size:0.85rem;opacity:0.8">(Press play — magic syncs with the music 🎶)</p>
+      <br>
+      <button onclick="showImage()">Press to see the first surprise 📸</button>
+    </div>
+  </section>
+
+  <!-- Image Popup -->
+  <div id="imagePopup">
+    <img id="popupImg">
+    <button onclick="nextImage()">Next 😏➡️</button>
+  </div>
+
+  <!-- Mini Game -->
+  <section id="game">
+    <div class="card">
+      <h2>Mini Game 😈💘</h2>
+      <p class="game-box" id="question"></p>
+
+      <div class="choices">
+        <button onclick="choose(0)"></button>
+        <button onclick="choose(1)"></button>
+        <button onclick="choose(2)"></button>
+      </div>
+
+      <p id="gameResult" style="margin-top:15px"></p>
+      <button id="nextBtn" style="display:none" onclick="nextQuestion()">Next 😏➡️</button>
+      <br>
+      <button onclick="goTo('finalwish')">Continue 💌</button>
+    </div>
+  </section>
+
+  <!-- Long Letter Ending -->
+  <section id="ending">
+    <div class="card">
+      <h2>My Love, My Everything 💖</h2>
+      <p style="text-align:left; white-space:pre-line; font-size:1rem; line-height:1.8">
+My love, my everything,
+Happy 19th Birthday, my darling! 🎉💖
+
+Right now, as the clock ticks toward midnight on February 8th, I’m lying here thinking about how in just a few hours you’ll wake up to a brand-new year of you—and honestly, my heart is racing just imagining it. Nineteen. My girl is turning nineteen, and the world feels brighter, warmer, fuller because of it.
+
+You have this incredible way of turning ordinary moments into something unforgettable. Every time I see you, it’s like the sky explodes into fireworks—colors I didn’t even know existed, bursts of light that leave me breathless and grinning like an idiot. That’s the effect you have on me, every single day. Pure wonder.
+
+Do you know that electric rush when something amazing is about to happen and your whole body tingles with anticipation? That’s exactly how I feel the moment I hear from you, see your name light up my phone, or catch your voice on a call. It’s this sweet impatience that never fades—I’m always counting down the seconds until the next time I get to talk to you, hear you laugh, feel you close.
+
+Your voice is my favorite song on endless repeat; it calms every storm inside me and makes everything feel right. You’ve taught me what it really means to feel deeply—happy tears when I’m overwhelmed by how much I love you, quiet moments where I just let everything pour out because you make it safe to be real. And when life gets tough, you’re the reason I want to stand taller, fight harder, face anything—because you’re worth every bit of courage I can find.
+
+Nineteen looks so beautiful on you already. You’re stepping into this new age with that same breathtaking spark, that mix of softness and strength, dreams and determination that makes you completely irresistible. You’re not just growing older—you’re growing even more into the woman who owns my whole heart.
+
+I’m the luckiest person alive to have spent another year wrapped up in you. Every day with you makes me better, makes me want to be better, makes me believe in forever a little more. I’ve never loved anyone the way I love you—fiercely, completely, with no space left for anyone else. You’re my favorite person to talk to, to laugh with, to dream beside, to just exist with.
+
+So today, I want you to feel how deeply you’re loved: my endless love, my respect, my loyalty, my comfort, my joy—all of it belongs to you. May this year bring you every dream you’re chasing, health that stays strong, smiles that never run out, and moments so perfect they take your breath away.
+
+Happy 19th Birthday, my heart. Thank you for choosing me, for lighting up my world, for being you.
+
+Forever yours, completely and always,
+      </p>
+      <div class="heart">❤️</div>
+      <p style="margin-top:20px"><strong>Have the most beautiful day, Vandri.</strong><br>I love you endlessly 💕</p>
+    </div>
+  </section>
+
+  <!-- Birthday Pop-up -->
+  <section id="finalwish">
+    <div class="card">
+      <h2>One Last Birthday Wish ✨</h2>
+      <button onclick="showWish()">Tap gently 💖</button>
+    </div>
+  </section>
+  <div id="wishPopup">
+    <div class="wishText">Happy 19th Birthday,<br>Sweetheart 💖🎉</div>
+  </div>
+
+  <!-- Monkey Surprise -->
+  <section id="monkey">
+    <div class="card">
+      <h2>One Last Thing 🙈</h2>
+      <p>Because you’re cute, mischievous, and impossible to ignore…</p>
+      <img src="monkey.png" alt="Cute Monkey" style="width:220px;max-width:80%;border-radius:24px;box-shadow:0 10px 30px rgba(0,0,0,0.4)">
+      <p style="margin-top:15px">This is you when you! SORRY NOT SORRY 😏🐒</p>
+    </div>
+  </section>
+
+  <footer>
+    Made with love just for My darling 🌸
+  </footer>
+
+  <script>
+    // Navigation & Confetti
+    function goTo(id){
+      document.getElementById(id).scrollIntoView({behavior:'smooth'});
+      if(id === 'wish') launchConfetti();
+    }
+
+    function launchConfetti(){
+      for(let i=0;i<60;i++){
+        const conf=document.createElement('div');
+        conf.style.position='fixed';
+        conf.style.top='-10px';
+        conf.style.left=Math.random()*100+'vw';
+        conf.style.width='8px';
+        conf.style.height='14px';
+        conf.style.background=`hsl(${Math.random()*360},80%,60%)`;
+        conf.style.animation='confetti 3s linear forwards';
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(),3000);
+      }
+    }
+
+    // Floating Hearts
+    let audioCtx, analyser, dataArray;
+    const bgm = document.getElementById('bgm');
+    bgm.addEventListener('play', setupAudio);
+    function setupAudio(){
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const source = audioCtx.createMediaElementSource(bgm);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 256;
+      dataArray = new Uint8Array(analyser.frequencyBinCount);
+      source.connect(analyser);
+      analyser.connect(audioCtx.destination);
+      beatLoop();
+    }
+    function beatLoop(){
+      analyser.getByteFrequencyData(dataArray);
+      const avg = dataArray.reduce((a,b)=>a+b,0)/dataArray.length;
+      if(avg > 140) launchHearts();
+      requestAnimationFrame(beatLoop);
+    }
+    function launchHearts(){
+      for(let i=0;i<20;i++){
+        const heart = document.createElement('div');
+        heart.innerText = '💖';
+        heart.style.position='fixed';
+        heart.style.left=Math.random()*100+'vw';
+        heart.style.bottom='-20px';
+        heart.style.fontSize=(20+Math.random()*20)+'px';
+        heart.style.animation='floatUp 4s linear forwards';
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),4000);
+      }
+    }
+
+    // Mini Game
+    const questions = [
+      {q:"Who loves Vandri the most?", a:["Everyone 🤔","Vrushabh 😌💘","She loves herself more 😂"], correct:1},
+      {q:"What is Vandri secretly addicted to?", a:["Sleep 😴","Herself 😏","Vrushabh Obviously🥺"], correct:2},
+      {q:"What happens when Vandri is angry?", a:["World war starts 💣","She becomes cuter 😤💖","Silent mode activated 🤐"], correct:1},
+      {q:"What is vrushabh's favorite thing about her?", a:["Her smile 💕","Her heart 💖","Everything 😌"], correct:2}
+    ];
+    let currentQ = 0;
+    function loadQuestion(){
+      const q = questions[currentQ];
+      document.getElementById('question').innerText = q.q;
+      document.querySelectorAll('.choices button').forEach((btn,i)=>{btn.innerText = q.a[i];});
+      document.getElementById('gameResult').innerText = '';
+      document.getElementById('nextBtn').style.display = 'none';
+    }
+    function choose(i){
+      if(i === questions[currentQ].correct){
+        document.getElementById('gameResult').innerText = 'Correct 😌💖';
+        launchHearts();
+        document.getElementById('nextBtn').style.display = 'inline-block';
+      } else {
+        document.getElementById('gameResult').innerText = 'Wrong 😤 Try again!';
+      }
+    }
+    function nextQuestion(){
+      currentQ++;
+      if(currentQ < questions.length){
+        loadQuestion();
+      } else {
+        document.getElementById('question').innerText='Game over 😌💘';
+        document.querySelector('.choices').style.display='none';
+        document.getElementById('gameResult').innerText='You did amazing, just like you 💖';
+      }
+    }
+    loadQuestion();
+
+    // Birthday Pop-up
+    function showWish(){
+      const popup=document.getElementById('wishPopup');
+      popup.style.display='flex';
+      launchConfetti();
+      setTimeout(()=>popup.style.display='none',3500);
+    }
+
+    // Image Popup
+    const images=['photo1_funny.jpg','photo2.jpg','photo3.jpg','photo4.jpg','photo5.jpg'];
+    let imgIndex=0;
+    function showImage(){
+      imgIndex=0;
+      document.getElementById('imagePopup').style.display='flex';
+      document.getElementById('popupImg').src=images[imgIndex];
+    }
+    function nextImage(){
+      imgIndex++;
+      if(imgIndex<images.length){
+        document.getElementById('popupImg').src=images[imgIndex];
+      } else {
+        document.getElementById('imagePopup').style.display='none';
+        goTo('game');
+      }
+    }
+
+  </script>
+</body>
+</html>
